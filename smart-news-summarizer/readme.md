@@ -8,7 +8,7 @@
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=flat&logo=javascript&logoColor=%23F7DF1E)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=flat&logo=tailwind-css&logoColor=white)
 
-[🌐 Live Demo](https://Srinithya1503.github.io/Gen-AI-Projects/smart%20news%20summarizer/) | [🐞 Report Bug](https://github.com/Srinithya1503/Gen-AI-Projects/issues) | [💡 Request Feature](https://github.com/Srinithya1503/Gen-AI-Projects/issues)
+[🌐 Live Demo](https://Srinithya1503.github.io/Gen-AI-Projects/smart-news-summarizer/) | [🐞 Report Bug](https://github.com/Srinithya1503/Gen-AI-Projects/issues) | [💡 Request Feature](https://github.com/Srinithya1503/Gen-AI-Projects/issues)
 
 ---
 
@@ -64,7 +64,7 @@ It’s designed for professionals, students, and researchers who want to **consu
 
 ## 🎬 Demo
 
-👉 **[Live Application](https://Srinithya1503.github.io/Gen-AI-Projects/smart%20news%20summarizer/)**
+👉 **[Live Application](https://Srinithya1503.github.io/Gen-AI-Projects/smart-news-summarizer/)**
 
 
 ---
@@ -88,7 +88,7 @@ start index.html
 Or simply open index.html in your browser.
 
 View Online
-👉 https://Srinithya1503.github.io/Gen-AI-Projects/smart%20news%20summarizer/
+👉 https://Srinithya1503.github.io/Gen-AI-Projects/smart-news-summarizer/
 
 ## 💡 Usage Guide
 Get your Gemini API key from Google AI Studio
@@ -116,7 +116,7 @@ You can deploy your own fork:
 Fork the repo
 Enable GitHub Pages → Deploy from main branch
 
-Access via: https://Srinithya1503.github.io/Gen-AI-Projects/smart%20news%20summarizer/
+Access via: (https://Srinithya1503.github.io/Gen-AI-Projects/smart-news-summarizer/)
 
 ## 📁 Project Structure
 smart-news-summarizer/
@@ -146,7 +146,6 @@ Sri Nithya
 📫 Email: venkatsri1503@gmail.com
 💼 LinkedIn: sri-nithya-s
 🐙 GitHub: @Srinithya1503
-📂 Project: Smart News Summarizer
 
 🙏 Acknowledgments
 Google Gemini API – AI model powering the summarization
