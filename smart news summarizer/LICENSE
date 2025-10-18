@@ -1,0 +1,113 @@
+
+#### **`LICENSE`** (MIT License)
+```
+MIT License
+
+Copyright (c) 2024 Srinithya
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### 3. **Enable GitHub Pages**
+
+1. Go to: https://github.com/Srinithya1503/Gen-AI-Projects/settings/pages
+2. Under "Source", select: **Deploy from a branch**
+3. Branch: **main**, Folder: **/ (root)**
+4. Click **Save**
+5. Wait 2-3 minutes
+
+Your site will be live at:
+```
+https://srinithya1503.github.io/Gen-AI-Projects/smart%20news%20summarizer/
+```
+
+### 4. **Update Repository Settings**
+
+Go to your repository main page and add:
+
+**Description:**
+```
+🤖 AI-powered news article summarizer using Google Gemini 2.0 Flash API. Transform lengthy articles into structured summaries with key takeaways and insights. Built with HTML, JavaScript & Tailwind CSS.
+```
+
+**Website:**
+```
+https://srinithya1503.github.io/Gen-AI-Projects/smart%20news%20summarizer/
+```
+
+**Topics (Tags):** Add these for discoverability
+```
+ai
+artificial-intelligence
+gemini-api
+google-gemini
+news-summarizer
+text-summarization
+nlp
+javascript
+html5
+tailwindcss
+portfolio-project
+machine-learning
+api-integration
+web-app
+summarization
+```
+
+### 5. **Register with Google Search Console**
+
+Make your project searchable on Google:
+
+1. Go to: https://search.google.com/search-console/
+2. Add property: `https://srinithya1503.github.io/Gen-AI-Projects/smart%20news%20summarizer/`
+3. Verify ownership (use HTML tag method)
+4. Submit your sitemap
+5. Request indexing
+
+### 6. **Create a Screenshot**
+
+Take a nice screenshot of your app and save it as `screenshot.png` in your repository. This makes your README more attractive!
+
+### 7. **Update All URLs in Your Files**
+
+Replace all instances of:
+- `yourusername` → `Srinithya1503`
+- `smart-news-summarizer` → `Gen-AI-Projects/smart%20news%20summarizer`
+- `Your Name` → `Srinithya` (or your full name)
+
+### 8. **Promote Your Project**
+
+Share it on:
+- ✅ LinkedIn (with demo video or screenshots)
+- ✅ Twitter/X with hashtags: #AI #MachineLearning #GeminiAPI
+- ✅ Reddit: r/InternetIsBeautiful, r/webdev
+- ✅ Product Hunt (for tech products)
+- ✅ Dev.to (write a blog post about building it)
+- ✅ AI tool directories
+
+### 9. **Add to Your Resume**
+```
+Smart News Summarizer | Oct 2024
+- Developed AI-powered web application using Google Gemini 2.0 Flash API
+- Implemented NLP-based article summarization with structured output
+- Built responsive UI with Tailwind CSS and vanilla JavaScript
+- Deployed on GitHub Pages with 100% client-side architecture
+- Technologies: HTML5, JavaScript, Gemini API, REST APIs, Tailwind CSS
+- Live Demo: [Your GitHub Pages URL]
+- Source: github.com/Srinithya1503/Gen-AI-Projects

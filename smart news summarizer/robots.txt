@@ -1,0 +1,13 @@
+# robots.txt for Smart News Summarizer
+# Allow search engines to crawl all pages of your GitHub Pages site
+
+User-agent: *
+Allow: /
+
+# Disallow private or non-existent directories
+Disallow: /LICENSE
+Disallow: /LEARNING_MANUAL.md
+Disallow: /README.md
+
+# Sitemap location
+Sitemap: https://Srinithya1503.github.io/Gen-AI-Projects/smart%20news%20summarizer/sitemap.xml

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary Meta Tags -->
+  <title>Smart News Summarizer - Free AI Article Summarizer | Google Gemini Powered</title>
+  <meta name="title" content="Smart News Summarizer - Free AI Article Summarizer | Google Gemini Powered" />
+  <meta name="description" content="Free AI-powered news article summarizer using Google Gemini 2.0. Instantly convert lengthy articles into structured summaries with key takeaways, analysis, and insights. No signup required!" />
+  <meta name="keywords" content="AI summarizer, article summarizer, news summarizer, Google Gemini, text summarization, NLP, content analysis, AI tools" />
+  <meta name="author" content="Sri Nithya" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://Srinithya1503.github.io/Gen-AI-Projects/smart%20news%20summarizer/" />
+  <meta property="og:title" content="Smart News Summarizer - Free AI Article Summarizer" />
+  <meta property="og:description" content="Free AI-powered news article summarizer using Google Gemini 2.0. Instantly convert lengthy articles into structured summaries." />
+  <meta property="og:image" content="https://Srinithya1503.github.io/Gen-AI-Projects/smart%20news%20summarizer/preview.png" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://Srinithya1503.github.io/Gen-AI-Projects/smart%20news%20summarizer/" />
+  <meta property="twitter:title" content="Smart News Summarizer - Free AI Article Summarizer" />
+  <meta property="twitter:description" content="Free AI-powered news article summarizer using Google Gemini 2.0." />
+  <meta property="twitter:image" content="https://Srinithya1503.github.io/Gen-AI-Projects/smart%20news%20summarizer/preview.png" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://Srinithya1503.github.io/Gen-AI-Projects/smart%20news%20summarizer/" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://Srinithya1503.github.io/Gen-AI-Projects/smart%20news%20summarizer/preview.png" />
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Smart News Summarizer",
+    "description": "Free AI-powered news article summarizer using Google Gemini 2.0.",
+    "url": "https://Srinithya1503.github.io/Gen-AI-Projects/smart%20news%20summarizer/",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Sri Nithya"
+    }
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+
+    .spinner { animation: spin 1s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    .fade-in { animation: fadeIn 0.5s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+  <div class="p-6">
+    <div class="max-w-4xl mx-auto">
+
+      <!-- Header -->
+      <header class="text-center mb-8">
+        <h1 class="text-4xl font-bold gradient-text">Smart News Summarizer</h1>
+        <p class="text-gray-600 mt-2">✨ Powered by Google Gemini 2.0 Flash ✨</p>
+      </header>
+
+      <!-- Input Section -->
+      <main>
+        <article class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Gemini API Key</label>
+          <input id="apiKey" type="password" placeholder="Enter your Gemini API key"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none mb-4" />
+          <p class="text-xs text-gray-500 mb-4">
+            Get your API key from
+            <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-blue-600 hover:underline">
+              Google AI Studio
+            </a>
+          </p>
+
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Paste Article Text (Recommended)</label>
+          <textarea id="articleText" rows="6" placeholder="Paste your news article text here..."
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none mb-4 resize-y"></textarea>
+
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Or Article URL (Limited Support)</label>
+          <input id="newsUrl" type="url" placeholder="https://example.com/news"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none mb-6" />
+
+          <button id="summarizeBtn" onclick="summarizeArticle()"
+            class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition">
+            Summarize Article
+          </button>
+        </article>
+
+        <!-- Error Message -->
+        <div id="errorBox" class="hidden bg-red-50 border border-red-200 rounded-lg p-4 mb-6 text-red-700 text-sm fade-in"></div>
+
+        <!-- Summary Display -->
+        <div id="summaryBox" class="hidden bg-gradient-to-br from-white to-blue-50 rounded-2xl shadow-2xl p-8 border-2 border-blue-100 fade-in">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold gradient-text">📰 AI Summary</h2>
+            <button onclick="copySummary()" class="text-sm bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600 transition">Copy</button>
+          </div>
+          <div id="summaryContent" class="summary-content text-gray-800 text-base leading-relaxed"></div>
+          <div class="mt-6 pt-4 border-t border-gray-200 flex justify-between items-center">
+            <button onclick="resetForm()" class="text-gray-600 hover:text-gray-800">← Summarize another article</button>
+            <p class="text-xs text-gray-500">⚡ Powered by Google Gemini</p>
+          </div>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="text-center mt-10 text-gray-500 text-sm">
+        <p>
+          Made with ❤️ and AI |
+          <a href="https://github.com/Srinithya1503/Gen-AI-Projects/tree/main/smart%20news%20summarizer"
+            target="_blank" class="text-blue-600 hover:underline">
+            View on GitHub
+          </a>
+        </p>
+        <p class="mt-2 text-xs">
+          Developed by <strong>Sri Nithya</strong> |
+          <a href="mailto:venkatsri1503@gmail.com" class="text-blue-500 hover:underline">venkatsri1503@gmail.com</a> |
+          <a href="https://www.linkedin.com/in/sri-nithya-s-0b47681a4/" target="_blank"
+            class="text-blue-500 hover:underline">LinkedIn</a>
+        </p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Summarizer Script -->
+  <script>
+    function showError(message) {
+      const errorBox = document.getElementById('errorBox');
+      errorBox.textContent = message;
+      errorBox.classList.remove('hidden');
+    }
+
+    function hideError() {
+      document.getElementById('errorBox').classList.add('hidden');
+    }
+
+    function resetForm() {
+      document.getElementById('articleText').value = '';
+      document.getElementById('newsUrl').value = '';
+      document.getElementById('summaryBox').classList.add('hidden');
+      hideError();
+    }
+
+    function copySummary() {
+      const text = document.getElementById('summaryContent').innerText;
+      navigator.clipboard.writeText(text);
+      alert('Summary copied to clipboard!');
+    }
+
+    async function summarizeArticle() {
+      const apiKey = document.getElementById('apiKey').value.trim();
+      const articleText = document.getElementById('articleText').value.trim();
+      const newsUrl = document.getElementById('newsUrl').value.trim();
+
+      hideError();
+      if (!apiKey) return showError('Please enter your Gemini API key.');
+      if (!articleText && !newsUrl) return showError('Please provide an article or a valid URL.');
+
+      let content = articleText;
+      if (!content && newsUrl) {
+        const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent(newsUrl));
+        const data = await response.json();
+        const doc = new DOMParser().parseFromString(data.contents, 'text/html');
+        content = doc.body.innerText.slice(0, 15000);
+      }
+
+      const prompt = `You are an expert content summarizer. Provide a structured summary of this article in this format:
+
+📰 HEADLINE
+[Short headline]
+
+🎯 KEY TAKEAWAYS
+• [Main point 1]
+• [Main point 2]
+• [Main point 3]
+
+📊 DETAILED ANALYSIS
+[2–3 paragraphs of detailed explanation]
+
+💡 BOTTOM LINE
+[Final summary or conclusion]
+
+Article:
+${content}`;
+
+      try {
+        const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: prompt }] }],
+              generationConfig: { temperature: 0.7, maxOutputTokens: 1024 }
+            })
+          }
+        );
+        const data = await response.json();
+        if (data.error) throw new Error(data.error.message);
+        const summary = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No summary generated.';
+        document.getElementById('summaryContent').innerText = summary;
+        document.getElementById('summaryBox').classList.remove('hidden');
+      } catch (err) {
+        showError(err.message || 'Failed to summarize.');
+      }
+    }
+
+    document.getElementById('newsUrl').addEventListener('keypress', e => e.key === 'Enter' && summarizeArticle());
+    document.getElementById('apiKey').addEventListener('keypress', e => e.key === 'Enter' && summarizeArticle());
+  </script>
+</body>
+</html>

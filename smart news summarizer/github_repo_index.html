@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-powered news summarizer using Google Gemini API">
+    <title>Smart News Summarizer - AI Portfolio Project</title>
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAABNElEQVR4nO2YwQ6CMBBEB/7/l/XiRROVpbO7pU3mJHtoZ6YtlBARERERERGRf6cHxgOYDmA8gOkAxgOYDmA8gOkAxgOYDmA8gOkAxgOYDmA8gOkAxgOYDmA8gOkAxgOYDmA8gOkAJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnOkCJsyZLmDCnDkBERERERER+VceUrVF2cwqzlsAAAAASUVORK5CYII=">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .pulse-subtle {
+            animation: pulse-subtle 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .shine {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .shine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .summary-content h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .summary-content h3:first-child {
+            margin-top: 0;
+        }
+        
+        .summary-content strong {
+            color: #4f46e5;
+            font-weight: 700;
+        }
+        
+        .summary-content ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 1rem 0;
+        }
+        
+        .summary-content ul li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+            line-height: 1.6;
+        }
+        
+        .summary-content ul li:before {
+            content: "\2713";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .summary-content p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div class="p-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-8">
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <div class="shine bg-gradient-to-br from-blue-500 to-purple-600 p-3 rounded-2xl shadow-lg">
+                        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                        </svg>
+                    </div>
+                    <h1 class="text-4xl font-bold gradient-text">Smart News Summarizer</h1>
+                </div>
+                <p class="text-gray-600 flex items-center justify-center gap-2">
+                    <span class="pulse-subtle">✨</span>
+                    Powered by Google Gemini AI
+                    <span class="pulse-subtle">✨</span>
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Gemini API Key
+                    </label>
+                    <input
+                        type="password"
+                        id="apiKey"
+                        placeholder="Enter your Gemini API key"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                    />
+                    <p class="text-xs text-gray-500 mt-1">
+                        Get your API key from 
+                        <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">
+                            Google AI Studio
+                        </a>
+                    </p>
+                </div>
+
+                <div class="mb-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="block text-sm font-semibold text-gray-700">
+                            Paste Article Text Directly (Recommended)
+                        </label>
+                        <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Best Method</span>
+                    </div>
+                    <textarea
+                        id="articleText"
+                        placeholder="Paste the full article text here... Works with ANY website including AWS, Medium, LinkedIn, etc."
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition resize-y"
+                        rows="6"
+                    ></textarea>
+                    <p class="text-xs text-gray-500 mt-1">
+                        💡 Tip: Copy article content (Ctrl+A, Ctrl+C) from any website and paste here
+                    </p>
+                </div>
+
+                <div class="mb-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="block text-sm font-semibold text-gray-700">
+                            Or Try Article URL (Limited Support)
+                        </label>
+                        <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">May Not Work</span>
+                    </div>
+                    <input
+                        type="url"
+                        id="newsUrl"
+                        placeholder="https://example.com/news-article"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                    />
+                </div>
+
+                <button
+                    onclick="summarizeArticle()"
+                    id="summarizeBtn"
+                    class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                    </svg>
+                    <span id="btnText">Summarize Article</span>
+                </button>
+            </div>
+
+            <div id="errorBox" class="hidden bg-red-50 border border-red-200 rounded-lg p-4 mb-6 flex items-start gap-3 fade-in">
+                <svg class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <p id="errorText" class="text-red-800 text-sm"></p>
+            </div>
+
+            <div id="summaryBox" class="hidden bg-gradient-to-br from-white to-blue-50 rounded-2xl shadow-2xl p-8 border-2 border-blue-100 fade-in">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-gradient-to-br from-purple-500 to-pink-500 p-2 rounded-xl">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl font-bold gradient-text">AI Summary</h2>
+                    </div>
+                    <button 
+                        onclick="copySummary()" 
+                        class="flex items-center gap-2 text-sm font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-2 rounded-lg transition shadow-md hover:shadow-lg"
+                        title="Copy summary to clipboard"
+                    >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-inner">
+                    <div id="summaryContent" class="summary-content text-gray-800 text-base leading-relaxed"></div>
+                </div>
+                <div class="mt-6 pt-4 border-t border-gray-200 flex items-center justify-between">
+                    <button 
+                        onclick="resetForm()" 
+                        class="flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-gray-800 hover:bg-gray-100 px-4 py-2 rounded-lg transition"
+                    >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Summarize another article
+                    </button>
+                    <div class="flex items-center gap-2 text-xs text-gray-500">
+                        <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Powered by Gemini AI
+                    </div>
+                </div>
+            </div>
+
+            <div id="instructionsBox" class="space-y-6">
+                <div class="bg-purple-50 border border-purple-200 rounded-lg p-6">
+                    <h3 class="font-semibold text-purple-900 mb-3 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+                        </svg>
+                        How to Get Your FREE Gemini API Key
+                    </h3>
+                    <ol class="space-y-3 text-sm text-purple-800">
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold bg-purple-200 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0">1</span>
+                            <div>
+                                <strong>Visit Google AI Studio:</strong><br>
+                                Go to <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-blue-600 hover:underline font-mono text-xs">aistudio.google.com/app/apikey</a>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold bg-purple-200 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0">2</span>
+                            <div>
+                                <strong>Sign in:</strong><br>
+                                Use your Google account (Gmail) to sign in
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold bg-purple-200 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0">3</span>
+                            <div>
+                                <strong>Create API Key:</strong><br>
+                                Click the blue button to create a new API key
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold bg-purple-200 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0">4</span>
+                            <div>
+                                <strong>Select Project:</strong><br>
+                                Choose create API key in new project (easiest option)
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold bg-purple-200 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0">5</span>
+                            <div>
+                                <strong>Copy Your Key:</strong><br>
+                                Copy the API key and paste it above
+                            </div>
+                        </li>
+                    </ol>
+                    <div class="mt-4 p-3 bg-purple-100 rounded-lg">
+                        <p class="text-xs text-purple-900">
+                            <strong>💎 100% Free:</strong> Google provides generous free tier limits. Perfect for personal use!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                    <h3 class="font-semibold text-blue-900 mb-3">📝 How to Summarize Articles:</h3>
+                    <ol class="list-decimal list-inside space-y-2 text-blue-800 text-sm">
+                        <li>Get your free API key using the tutorial above</li>
+                        <li>Paste your API key in the password field at the top</li>
+                        <li>Copy article text from any website and paste it in the text area</li>
+                        <li>Click Summarize Article to get an AI-generated summary</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="text-center mt-8 text-gray-500 text-sm">
+                <p>Made with ❤️ and AI</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function setUrl(url) {
+            document.getElementById('newsUrl').value = url;
+        }
+
+        function showError(message) {
+            var errorBox = document.getElementById('errorBox');
+            var errorText = document.getElementById('errorText');
+            errorText.textContent = message;
+            errorBox.classList.remove('hidden');
+        }
+
+        function hideError() {
+            document.getElementById('errorBox').classList.add('hidden');
+        }
+
+        function showSummary(summary) {
+            var summaryBox = document.getElementById('summaryBox');
+            var summaryContent = document.getElementById('summaryContent');
+            
+            var formattedSummary = summary
+                .replace(/📰 HEADLINE/g, '<h3 style="color: #2563eb; font-size: 1.5rem;">📰 HEADLINE</h3>')
+                .replace(/🎯 KEY TAKEAWAYS/g, '<h3 style="color: #16a34a; font-size: 1.25rem; margin-top: 1.5rem;">🎯 KEY TAKEAWAYS</h3>')
+                .replace(/📊 DETAILED ANALYSIS/g, '<h3 style="color: #9333ea; font-size: 1.25rem; margin-top: 1.5rem;">📊 DETAILED ANALYSIS</h3>')
+                .replace(/💡 BOTTOM LINE/g, '<h3 style="color: #ea580c; font-size: 1.25rem; margin-top: 1.5rem;">💡 BOTTOM LINE</h3>')
+                .replace(/^• (.+)$/gm, '<li>$1</li>')
+                .replace(/(<li>.*?<\/li>\s*)+/g, '<ul>$&</ul>')
+                .replace(/^(?!<[hul])(.*\S.*)$/gm, '<p>$1</p>');
+            
+            summaryContent.innerHTML = formattedSummary;
+            summaryBox.classList.remove('hidden');
+            document.getElementById('instructionsBox').classList.add('hidden');
+            
+            setTimeout(function() {
+                summaryBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
+        function setLoading(isLoading) {
+            var btn = document.getElementById('summarizeBtn');
+            
+            if (isLoading) {
+                btn.disabled = true;
+                btn.innerHTML = '<svg class="w-5 h-5 spinner" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg><span>Summarizing...</span>';
+            } else {
+                btn.disabled = false;
+                btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg><span>Summarize Article</span>';
+            }
+        }
+
+        function copySummary() {
+            var summaryElement = document.getElementById('summaryContent');
+            var summaryText = summaryElement.innerText || summaryElement.textContent;
+            
+            navigator.clipboard.writeText(summaryText).then(function() {
+                var btn = event.target.closest('button');
+                var originalHTML = btn.innerHTML;
+                btn.style.backgroundColor = '#10b981';
+                btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Copied!';
+                setTimeout(function() {
+                    btn.innerHTML = originalHTML;
+                    btn.style.backgroundColor = '';
+                }, 2000);
+            }).catch(function() {
+                alert('Failed to copy. Please select and copy manually.');
+            });
+        }
+
+        function resetForm() {
+            document.getElementById('summaryBox').classList.add('hidden');
+            document.getElementById('instructionsBox').classList.remove('hidden');
+            document.getElementById('articleText').value = '';
+            document.getElementById('newsUrl').value = '';
+            hideError();
+        }
+
+        async function summarizeArticle() {
+            var apiKey = document.getElementById('apiKey').value.trim();
+            var newsUrl = document.getElementById('newsUrl').value.trim();
+            var articleText = document.getElementById('articleText').value.trim();
+
+            hideError();
+            document.getElementById('summaryBox').classList.add('hidden');
+
+            if (!apiKey) {
+                showError('Please enter your Gemini API key');
+                return;
+            }
+
+            if (!newsUrl && !articleText) {
+                showError('Please enter a news article URL or paste article text directly');
+                return;
+            }
+
+            setLoading(true);
+
+            try {
+                var cleanText = '';
+
+                if (articleText) {
+                    cleanText = articleText.trim().substring(0, 15000);
+                } else {
+                    var response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent(newsUrl));
+                    var data = await response.json();
+                    
+                    if (!data.contents) {
+                        throw new Error('Unable to fetch article. Please paste the text directly.');
+                    }
+
+                    var parser = new DOMParser();
+                    var doc = parser.parseFromString(data.contents, 'text/html');
+                    var unwanted = doc.querySelectorAll('script, style, nav, header, footer, iframe');
+                    unwanted.forEach(function(el) { el.remove(); });
+                    
+                    var articleTextFromHtml = doc.body.textContent || doc.body.innerText || '';
+                    cleanText = articleTextFromHtml.replace(/\s+/g, ' ').trim().substring(0, 15000);
+                }
+
+                if (!cleanText) {
+                    throw new Error('No readable content found. Please paste the article text directly.');
+                }
+
+                var geminiResponse = await fetch(
+                    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=' + apiKey,
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{
+                                parts: [{
+                                    text: 'You are an expert content analyst. Provide a clear, well-structured summary.\n\nFormat your response EXACTLY as follows:\n\n📰 HEADLINE\n[Clear, concise headline]\n\n🎯 KEY TAKEAWAYS\n• [First key point]\n• [Second key point]\n• [Third key point]\n\n📊 DETAILED ANALYSIS\n[2-3 paragraphs with context and details]\n\n💡 BOTTOM LINE\n[2-3 sentences with implications]\n\nArticle:\n' + cleanText
+                                }]
+                            }],
+                            generationConfig: {
+                                temperature: 0.7,
+                                maxOutputTokens: 1024
+                            }
+                        })
+                    }
+                );
+
+                var geminiData = await geminiResponse.json();
+
+                if (geminiData.error) {
+                    throw new Error(geminiData.error.message || 'Failed to generate summary');
+                }
+
+                var summary = geminiData.candidates && geminiData.candidates[0] && 
+                             geminiData.candidates[0].content && geminiData.candidates[0].content.parts && 
+                             geminiData.candidates[0].content.parts[0] && geminiData.candidates[0].content.parts[0].text;
+
+                if (!summary) {
+                    throw new Error('No summary generated');
+                }
+
+                showSummary(summary);
+
+            } catch (error) {
+                showError(error.message || 'An error occurred while processing the article');
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        document.getElementById('newsUrl').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') summarizeArticle();
+        });
+
+        document.getElementById('apiKey').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') summarizeArticle();
+        });
+    </script>
+</body>
+</html>
