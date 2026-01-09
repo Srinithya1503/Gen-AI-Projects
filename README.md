@@ -54,5 +54,5 @@ Below are some example projects (included or upcoming) that illustrate real-worl
 
 1. **Clone this repository**
    ```bash
-   git clone https://github.com/Srinithya1503/Generative-AI-Projects.git
+   git clone https://github.com/Srinithya1503/Gen-AI-Projects.git
    cd Generative-AI-Projects
